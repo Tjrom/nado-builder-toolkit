@@ -28,6 +28,7 @@
 
 - Landing (GitHub Pages): https://tjrom.github.io/nado-builder-toolkit/
 - Source: `docs/index.html` in repo; enable Pages with branch `master` and folder `/docs` if the URL is not live yet.
+- **Public dashboard (no keys)**: Next.js app in `web/` — testnet connectivity + candles; deploy on Vercel with root directory `web` (see `web/README.md`).
 
 **Demo / test plan**
 

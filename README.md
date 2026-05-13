@@ -8,6 +8,18 @@
 
 Если открывается 404: в репозитории **Settings → Pages → Source: Deploy from branch**, ветка `master`, папка **`/docs`**. Подробнее: [WEBSITE.md](WEBSITE.md).
 
+## Веб для людей (дашборд без ключей)
+
+В папке **`web/`** — маленький сайт на Next.js: проверка testnet и последние свечи в браузере (см. [web/README.md](web/README.md)).
+
+Кратко:
+
+```powershell
+cd .\web\
+npm install
+npm run dev
+```
+
 Основано на документации:
 
 - [Nado API overview](https://docs.nado.xyz/developer-resources/api)

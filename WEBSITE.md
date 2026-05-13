@@ -8,6 +8,10 @@ This project ships a **static landing page** in the `docs/` folder for **GitHub 
 
 (If GitHub shows a 404, complete the steps below.)
 
+## Public dashboard (for non-developers)
+
+The repo includes a **Next.js app** in `web/`: testnet “health check” + candle table (no private keys). Deploy on **Vercel** with **Root Directory = `web`** to get a URL like `https://<project>.vercel.app` — you can add this as an extra link in your builder profile.
+
 ## Enable GitHub Pages
 
 1. Open the repo on GitHub: `https://github.com/Tjrom/nado-builder-toolkit`
