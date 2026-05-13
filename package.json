@@ -1,0 +1,28 @@
+{
+  "name": "nado-builder-toolkit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nado (Ink) SDK + CLI: signing, gateway executes/queries, subscriptions streams.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "nado": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "node --enable-source-maps dist/cli.js --help",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "commander": "^14.0.0",
+    "ethers": "^6.15.0",
+    "ws": "^8.18.3",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/ws": "^8.18.1",
+    "typescript": "^5.8.3"
+  }
+}
+
