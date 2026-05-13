@@ -27,7 +27,7 @@ export async function GET(req: Request) {
     const json = await res.json();
     if (json?.blocked) {
       return NextResponse.json(
-        { error: "Архив временно недоступен с этого сервера (блок по IP)." },
+        { error: "Archive is temporarily unreachable from this server (IP blocked at the edge)." },
         { status: 503 }
       );
     }

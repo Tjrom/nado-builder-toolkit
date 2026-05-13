@@ -32,7 +32,7 @@ export default function HomePage() {
       const res = await fetch("/api/contracts");
       const data = await res.json();
       if (!res.ok) {
-        setContractsErr(data?.error ?? `Ошибка ${res.status}`);
+        setContractsErr(data?.error ?? `Error ${res.status}`);
         return;
       }
       setContractsJson(JSON.stringify(data, null, 2));
@@ -56,7 +56,7 @@ export default function HomePage() {
       const res = await fetch(`/api/candles?${q}`);
       const data = await res.json();
       if (!res.ok) {
-        setCandlesErr(data?.error ?? `Ошибка ${res.status}`);
+        setCandlesErr(data?.error ?? `Error ${res.status}`);
         return;
       }
       const list = Array.isArray(data?.candlesticks) ? data.candlesticks : [];
@@ -70,29 +70,29 @@ export default function HomePage() {
 
   return (
     <main>
-      <h1>Nado — обзор для всех</h1>
+      <h1>Nado — overview for everyone</h1>
       <p className="lead">
-        Без установки программ: проверяем, что <strong>testnet Nado</strong> отвечает, и смотрим последние свечи. Данные
-        идут через этот сайт (сервер), поэтому ключи кошелька <strong>не нужны</strong>.
+        No install required: verify that <strong>Nado testnet</strong> responds and browse the latest candles. Requests
+        go through this site (server-side), so <strong>wallet keys are not needed</strong>.
       </p>
 
       <div className="card">
-        <h2>1. Проверить подключение к сети</h2>
+        <h2>1. Check network connectivity</h2>
         <p className="muted" style={{ marginTop: 0 }}>
-          Запрос к шлюзу: контракты и chain id (как в документации Nado).
+          Gateway query: contracts + chain id (per Nado docs).
         </p>
         <button type="button" onClick={fetchContracts} disabled={contractsLoading}>
-          {contractsLoading ? "Загрузка…" : "Проверить"}
+          {contractsLoading ? "Loading…" : "Check"}
         </button>
         {contractsErr && <div className="err">{contractsErr}</div>}
-        {contractsJson && !contractsErr && <div className="ok">Готово</div>}
+        {contractsJson && !contractsErr && <div className="ok">OK</div>}
         {contractsJson && <pre>{contractsJson}</pre>}
       </div>
 
       <div className="card">
-        <h2>2. Последние свечи (архив)</h2>
+        <h2>2. Latest candles (archive)</h2>
         <p className="muted" style={{ marginTop: 0 }}>
-          Цены в ответе в формате x18 (число × 10¹⁸). Продукт по умолчанию — <code>1</code>; можно сменить, если знаете
+          Prices are returned in x18 format (value × 10¹⁸). Default product is <code>1</code>; change it if you know the
           id.
         </p>
         <div className="row">
@@ -101,15 +101,15 @@ export default function HomePage() {
             <input id="pid" value={productId} onChange={(e) => setProductId(e.target.value)} inputMode="numeric" />
           </div>
           <div>
-            <label htmlFor="gran">Интервал (сек)</label>
+            <label htmlFor="gran">Interval (seconds)</label>
             <select id="gran" value={granularity} onChange={(e) => setGranularity(e.target.value)}>
-              <option value="60">1 мин (60)</option>
-              <option value="300">5 мин (300)</option>
-              <option value="3600">1 час (3600)</option>
+              <option value="60">1 min (60)</option>
+              <option value="300">5 min (300)</option>
+              <option value="3600">1 hour (3600)</option>
             </select>
           </div>
           <button type="button" onClick={fetchCandles} disabled={candlesLoading}>
-            {candlesLoading ? "Загрузка…" : "Показать"}
+            {candlesLoading ? "Loading…" : "Show"}
           </button>
         </div>
         {candlesErr && <div className="err">{candlesErr}</div>}
@@ -117,7 +117,7 @@ export default function HomePage() {
           <table>
             <thead>
               <tr>
-                <th>Время (unix)</th>
+                <th>Time (unix)</th>
                 <th>Open x18</th>
                 <th>High x18</th>
                 <th>Low x18</th>
@@ -137,18 +137,18 @@ export default function HomePage() {
             </tbody>
           </table>
         )}
-        {candles && candles.length === 0 && <p className="muted">Пустой ответ (проверьте product id).</p>}
+        {candles && candles.length === 0 && <p className="muted">Empty response (try another product id).</p>}
       </div>
 
       <p className="muted">
-        Для торговли и подписей по-прежнему нужен{" "}
-        <a href="https://github.com/Tjrom/nado-builder-toolkit">CLI / SDK</a> на своём компьютере. Документация:{" "}
+        For trading and signatures you still need the{" "}
+        <a href="https://github.com/Tjrom/nado-builder-toolkit">CLI / SDK</a> on your own machine. Docs:{" "}
         <a href="https://docs.nado.xyz/developer-resources/api">Nado API</a>.
       </p>
 
       <footer>
-        Открытый код — репозиторий{" "}
-        <a href="https://github.com/Tjrom/nado-builder-toolkit">nado-builder-toolkit</a>. Данные: Nado testnet.
+        Open source:{" "}
+        <a href="https://github.com/Tjrom/nado-builder-toolkit">nado-builder-toolkit</a>. Data: Nado testnet.
       </footer>
     </main>
   );

@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nado — простой обзор (testnet)",
-  description: "Проверка подключения к Nado и последние свечи без установки программ."
+  title: "Nado testnet explorer — simple overview",
+  description: "Check Nado testnet connectivity and view recent candles in your browser. No wallet keys required."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

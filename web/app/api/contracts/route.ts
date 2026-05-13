@@ -13,7 +13,10 @@ export async function GET() {
     const json = await res.json();
     if (json?.blocked) {
       return NextResponse.json(
-        { error: "Nado временно недоступен с этого сервера (блок по IP). Откройте сайт с другого хостинга или используйте CLI локально." },
+        {
+          error:
+            "Nado is temporarily unreachable from this server (IP blocked at the edge). Try another host, run locally, or use the CLI on your machine."
+        },
         { status: 503 }
       );
     }
