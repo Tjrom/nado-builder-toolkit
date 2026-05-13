@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nado Builder Toolkit — SDK &amp; CLI for Nado on Ink</title>
+  <meta name="description" content="Open-source TypeScript SDK and CLI for Nado: EIP-712 signing, Gateway, Archive, Trigger API, subscriptions, and alerts." />
+  <meta property="og:title" content="Nado Builder Toolkit" />
+  <meta property="og:description" content="SDK + CLI for Nado (Ink). Gateway, Archive, Trigger, WebSocket streams." />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://tjrom.github.io/nado-builder-toolkit/" />
+  <style>
+    :root {
+      --bg: #0b0c10;
+      --surface: #13151c;
+      --border: #252836;
+      --text: #e8e9ed;
+      --muted: #8b90a0;
+      --accent: #7c5cff;
+      --accent-dim: #5a42c4;
+      --success: #3dd68c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+    .badge {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+    }
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin: 2rem 0 0.75rem;
+      line-height: 1.2;
+    }
+    .lead { font-size: 1.125rem; color: var(--muted); margin: 0 0 1.5rem; max-width: 640px; }
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0 2.5rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-dim); text-decoration: none; }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--muted); text-decoration: none; }
+    section { margin-top: 2.5rem; }
+    h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      color: var(--text);
+    }
+    ul { margin: 0; padding-left: 1.25rem; color: var(--muted); }
+    li { margin: 0.35rem 0; }
+    li strong { color: var(--text); }
+    pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      overflow-x: auto;
+      font-size: 0.82rem;
+      line-height: 1.5;
+      color: #c4c8d4;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+    }
+    .card h3 { margin: 0 0 0.35rem; font-size: 0.95rem; color: var(--text); }
+    .card p { margin: 0; font-size: 0.875rem; color: var(--muted); }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">Nado Builder Toolkit</div>
+      <span class="badge">Developer tool · Ink / Nado</span>
+    </header>
+
+    <main>
+      <h1>Build faster on Nado</h1>
+      <p class="lead">
+        Open-source <strong>TypeScript SDK + CLI</strong> for the Nado API on Ink:
+        EIP-712 signing, Gateway executes, Archive indexer, Trigger service, WebSocket subscriptions, and a JSONL <strong>alerts</strong> runner.
+      </p>
+      <div class="cta">
+        <a class="btn btn-primary" href="https://github.com/Tjrom/nado-builder-toolkit">View on GitHub</a>
+        <a class="btn btn-secondary" href="https://docs.nado.xyz/developer-resources/api">Nado API docs</a>
+        <a class="btn btn-secondary" href="https://docs.inkonchain.com/">Ink docs</a>
+      </div>
+
+      <section>
+        <h2>What this is</h2>
+        <p class="lead" style="margin:0 0 1rem;font-size:1rem;">
+          This site is the project homepage. The product itself is a <strong>CLI</strong> you run locally (or integrate via the TypeScript sources in <code>src/</code>). There is no hosted trading UI here by design: keys stay on your machine.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>Gateway</h3>
+            <p>Contracts query, place/cancel orders with correct verifying contracts.</p>
+          </div>
+          <div class="card">
+            <h3>Archive</h3>
+            <p>Candlesticks and order history queries against the indexer.</p>
+          </div>
+          <div class="card">
+            <h3>Trigger</h3>
+            <p>Price triggers, TWAP triggers, list and cancel trigger orders.</p>
+          </div>
+          <div class="card">
+            <h3>Streams</h3>
+            <p>Subscribe to trades, fills, positions, order updates; optional JSONL log.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Quick start</h2>
+        <pre><code>git clone https://github.com/Tjrom/nado-builder-toolkit.git
+cd nado-builder-toolkit
+npm install
+npm run build
+node dist/cli.js --help</code></pre>
+      </section>
+
+      <section>
+        <h2>Links</h2>
+        <ul>
+          <li><strong>Repository</strong>: <a href="https://github.com/Tjrom/nado-builder-toolkit">github.com/Tjrom/nado-builder-toolkit</a></li>
+          <li><strong>Nado API</strong>: <a href="https://docs.nado.xyz/developer-resources/api">docs.nado.xyz/developer-resources/api</a></li>
+          <li><strong>Ink</strong>: <a href="https://docs.inkonchain.com/">docs.inkonchain.com</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      MIT License · Nado Builder Toolkit · Not affiliated with Nado; built using public API documentation.
+    </footer>
+  </div>
+</body>
+</html>

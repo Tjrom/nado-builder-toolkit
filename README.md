@@ -2,6 +2,12 @@
 
 Этот мини‑проект — **TypeScript SDK + CLI** для Nado (Ink), чтобы быстрее билдить ботов/дашборды/интеграции.
 
+## Website (для заявки Builder)
+
+Статический лендинг в папке `docs/` → **GitHub Pages**: [https://tjrom.github.io/nado-builder-toolkit/](https://tjrom.github.io/nado-builder-toolkit/)
+
+Если открывается 404: в репозитории **Settings → Pages → Source: Deploy from branch**, ветка `master`, папка **`/docs`**. Подробнее: [WEBSITE.md](WEBSITE.md).
+
 Основано на документации:
 
 - [Nado API overview](https://docs.nado.xyz/developer-resources/api)

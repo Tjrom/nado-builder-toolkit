@@ -24,6 +24,11 @@
 - Folder: `nado-builder-toolkit/`
 - Run: `npm i && npm run build`
 
+**Website**
+
+- Landing (GitHub Pages): https://tjrom.github.io/nado-builder-toolkit/
+- Source: `docs/index.html` in repo; enable Pages with branch `master` and folder `/docs` if the URL is not live yet.
+
 **Demo / test plan**
 
 1) Print chainId + endpoint:
