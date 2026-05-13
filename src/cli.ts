@@ -22,6 +22,14 @@ function parseBigint(v: string): bigint {
   return BigInt(v);
 }
 
+function jsonStringify(obj: unknown): string {
+  return JSON.stringify(
+    obj,
+    (_k, v) => (typeof v === "bigint" ? v.toString() : v),
+    2
+  );
+}
+
 async function mkGatewayWithContracts(network: NadoNetwork) {
   const eps = getEndpoints(network);
   const gateway = new NadoGatewayClient(eps.gatewayRestV1);
@@ -32,6 +40,7 @@ async function mkGatewayWithContracts(network: NadoNetwork) {
 const program = new Command();
 program.name("nado").description("Nado SDK + CLI (Ink) - gateway + subscriptions").version("0.1.0");
 
+async function main() {
 program
   .command("contracts")
   .description("Fetch chainId and endpoint address")
@@ -97,7 +106,7 @@ program
     });
 
     process.stdout.write(
-      JSON.stringify({ appendix: appendix.toString(), hex: "0x" + appendix.toString(16), decoded: parseAppendix(appendix) }, null, 2) + "\n"
+      jsonStringify({ appendix: appendix.toString(), hex: "0x" + appendix.toString(16), decoded: parseAppendix(appendix) }) + "\n"
     );
   });
 
@@ -634,4 +643,13 @@ program
   });
 
 await program.parseAsync(process.argv);
+}
+
+try {
+  await main();
+} catch (e) {
+  const msg = e instanceof Error ? e.message : String(e);
+  process.stderr.write(`ERROR: ${msg}\n`);
+  process.exitCode = 1;
+}
 

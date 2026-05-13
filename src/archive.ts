@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { detectEdgeBlock, formatHttpError, readJsonOrText } from "./http.js";
 
 function mkHeaders(): HeadersInit {
   // docs: must include gzip/br/deflate
@@ -17,7 +18,12 @@ export class NadoArchiveClient {
       headers: mkHeaders(),
       body: JSON.stringify(body)
     });
-    return await res.json();
+    const json = await readJsonOrText(res);
+    const blocked = detectEdgeBlock(json);
+    if (blocked) {
+      throw new Error(formatHttpError({ where: "archive/query", status: res.status, json }));
+    }
+    return json;
   }
 
   async candlesticks(params: { productId: number; granularitySec: number; limit?: number; maxTimeSec?: number }): Promise<unknown> {

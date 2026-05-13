@@ -1,6 +1,7 @@
 import { Wallet } from "ethers";
 import { NadoDomain, signTypedDataHex } from "./eip712.js";
 import { asHex32, mkRecvTimeNonce, productIdToVerifyingContract } from "./util.js";
+import { detectEdgeBlock, formatHttpError, readJsonOrText } from "./http.js";
 
 function mkHeaders(): HeadersInit {
   return {
@@ -18,7 +19,12 @@ export class NadoTriggerClient {
       headers: mkHeaders(),
       body: JSON.stringify(body)
     });
-    return await res.json();
+    const json = await readJsonOrText(res);
+    const blocked = detectEdgeBlock(json);
+    if (blocked) {
+      throw new Error(formatHttpError({ where: "trigger/execute", status: res.status, json }));
+    }
+    return json;
   }
 
   async query(body: unknown): Promise<unknown> {
@@ -27,7 +33,12 @@ export class NadoTriggerClient {
       headers: mkHeaders(),
       body: JSON.stringify(body)
     });
-    return await res.json();
+    const json = await readJsonOrText(res);
+    const blocked = detectEdgeBlock(json);
+    if (blocked) {
+      throw new Error(formatHttpError({ where: "trigger/query", status: res.status, json }));
+    }
+    return json;
   }
 
   async listTwapExecutions(digest: string): Promise<unknown> {

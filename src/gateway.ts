@@ -1,16 +1,25 @@
 import { z } from "zod";
+import { detectEdgeBlock, formatHttpError, readJsonOrText } from "./http.js";
 
-const ContractsResponse = z.object({
-  status: z.string(),
-  data: z
-    .object({
-      chain_id: z.string(),
-      endpoint_addr: z.string()
-    })
-    .optional(),
-  error: z.string().optional(),
-  error_code: z.number().optional()
-});
+const ContractsResponse = z.union([
+  z.object({
+    status: z.string(),
+    data: z
+      .object({
+        chain_id: z.string(),
+        endpoint_addr: z.string()
+      })
+      .optional(),
+    error: z.string().optional(),
+    error_code: z.number().optional()
+  }),
+  // Example observed when blocked at the edge:
+  // {"reason":"ip","blocked":true}
+  z.object({
+    reason: z.string().optional(),
+    blocked: z.boolean().optional()
+  })
+]);
 
 export type Contracts = {
   chainId: number;
@@ -32,10 +41,19 @@ export class NadoGatewayClient {
     const url = new URL(`${this.gatewayRestV1}/query`);
     url.searchParams.set("type", "contracts");
     const res = await fetch(url, { method: "GET", headers: mkHeaders() });
-    const json = await res.json();
+    const json = await readJsonOrText(res);
+    const blocked = detectEdgeBlock(json);
+    if (blocked) {
+      throw new Error(formatHttpError({ where: "gateway/contracts", status: res.status, json }));
+    }
     const parsed = ContractsResponse.parse(json);
-    if (parsed.status !== "success" || !parsed.data) {
-      throw new Error(`contracts query failed: ${parsed.error ?? "unknown error"} (${parsed.error_code ?? "n/a"})`);
+    if ("blocked" in parsed && parsed.blocked) {
+      throw new Error(formatHttpError({ where: "gateway/contracts", status: res.status, json: parsed }));
+    }
+    if (!("status" in parsed) || parsed.status !== "success" || !parsed.data) {
+      const err = "error" in parsed ? parsed.error : undefined;
+      const code = "error_code" in parsed ? parsed.error_code : undefined;
+      throw new Error(`contracts query failed: ${err ?? "unknown error"} (${code ?? "n/a"})`);
     }
     return {
       chainId: Number(parsed.data.chain_id),
@@ -49,7 +67,12 @@ export class NadoGatewayClient {
       headers: mkHeaders(),
       body: JSON.stringify(body)
     });
-    return await res.json();
+    const json = await readJsonOrText(res);
+    const blocked = detectEdgeBlock(json);
+    if (blocked) {
+      throw new Error(formatHttpError({ where: "gateway/execute", status: res.status, json }));
+    }
+    return json;
   }
 }
 
